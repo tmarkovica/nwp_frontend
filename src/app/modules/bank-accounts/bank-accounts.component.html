@@ -1,0 +1,97 @@
+<app-header></app-header>
+<app-dropdown-buttons></app-dropdown-buttons>
+<div class="bank-accounts">
+
+  <div class="section" *ngIf="transactions.length > 0">
+    <div class="section__heading">
+      <h1>TRANSACTIONS</h1>
+    </div>
+    <hr>
+    <div class="accounts">
+      <app-card-slider
+          [data]="transactions"
+          [cardType]="cardType"
+          >
+      </app-card-slider>
+    </div>
+  </div>
+
+  <div class="section">
+
+    <div class="section__heading">
+      <h1>BANK ACCOUNTS</h1>
+      <label>Currently open accounts <b>({{bankAccounts?.length}})</b></label>
+    </div>
+    <hr>
+
+    <div class="button-create">
+      <app-button [buttonText]="titleCreateBankAccount" (click)="openModal('create', 0)"></app-button>
+    </div>
+
+    <div class="accounts" *ngFor="let item of bankAccounts; let accountIndex = index;">
+
+
+      <div class="accounts__card">
+
+        <div class="accounts__card__header">
+          <h3>Account ID: {{item.id}}</h3>
+          <app-button buttonText="Delete" buttonType="danger" (click)="deleteAccount(accountIndex)"></app-button>
+        </div>
+
+        <div class="accounts__card__content">
+
+          <div class="accounts__card__content__block">
+            <label class="label-title">Balance</label>
+            <label class="label-value">{{item.balance}}</label>
+          </div>
+
+          <hr>
+
+          <div class="accounts__card__content__block">
+            <label class="label-title">Allowed minus</label>
+            <label class="label-value">{{item.allowedMinus}}</label>
+
+            <label class="label-title">Limit withdraw</label>
+            <label class="label-value">{{item.limitWithdraw}}</label>
+          </div>
+
+        </div>
+
+        <div class="accounts__card__content__buttons">
+          <app-button buttonText="Deposit" (click)="openModal('deposit', accountIndex)"></app-button>
+
+          <app-button buttonText="Withdraw" buttonType="primary-empty" (click)="openModal('withdraw', accountIndex)"></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div>
+
+<!-- Modals -->
+<app-modal
+  #create
+  [modalTitle]="titleCreateBankAccount"
+  buttonConfirmText="Create"
+  buttonDeclineText="Cancel"
+  >
+</app-modal>
+
+<app-modal-transaction
+  #deposit
+  [modalTitle]="'Deposit'"
+  buttonConfirmText="Confirm"
+  buttonDeclineText="Cancel"
+  >
+</app-modal-transaction>
+
+<app-modal-transaction
+  #withdraw
+  [modalTitle]="'Withdraw'"
+  buttonConfirmText="Confirm"
+  buttonDeclineText="Cancel"
+  >
+</app-modal-transaction>

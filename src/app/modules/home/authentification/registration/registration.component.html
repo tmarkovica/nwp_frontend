@@ -1,0 +1,115 @@
+<div class="registration">
+
+  <form
+    class="registration_form"
+    [formGroup]="registerForm"
+    (ngSubmit)="register()"
+  >
+    <h1 class="registration_form_title">{{'home.registration.title' | translate}}</h1>
+
+    <!-- Username -->
+    <nz-form-item>
+      <nz-form-label>{{'home.registration.username' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="usernameError">
+        <input
+          placeholder="{{'home.registration.usernamePlaceholder' | translate}}"
+          formControlName="username"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #usernameError let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.registration.required' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <!-- E-Mail -->
+    <nz-form-item>
+      <nz-form-label>{{'home.registration.email' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="emailError">
+        <input
+          placeholder="{{'home.registration.emailPlaceholder' | translate}}"
+          formControlName="email"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #emailError let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.registration.required' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <!-- Confirm E-Mail -->
+    <nz-form-item>
+      <nz-form-label>{{'home.registration.confirmEmail' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="confirmEmailError">
+        <input
+          placeholder="{{'home.registration.confirmEmailPlaceholder' | translate}}"
+          formControlName="confirmEmail"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #confirmEmailError let-control>
+        <ng-container *ngIf="registerForm.hasError('emailConfirmed')">
+            <span>{{'home.registration.email' | translate}} {{'home.registration.doesntMatch' | translate}}</span>
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.registration.required' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <!-- Password -->
+    <nz-form-item>
+      <nz-form-label>{{'home.registration.password' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="passwordError">
+        <input
+          placeholder="{{'home.registration.passwordPlaceholder' | translate}}"
+          formControlName="password"
+          type="password"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #passwordError let-control>
+        <ng-container *ngIf="control.hasError('minlength')">
+            <span>Your password must be at least 6 characters</span>
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.registration.required' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <!-- Confirm Password -->
+    <nz-form-item>
+      <nz-form-label>{{'home.registration.rePassword' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="confirmPasswordError">
+        <input
+          placeholder="{{'home.registration.rePasswordPlaceholder' | translate}}"
+          formControlName="confirmPassword"
+          type="password"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #confirmPasswordError let-control>
+        <ng-container *ngIf="registerForm.hasError('passwordConfirmed')">
+            <span>Password {{'home.registration.doesntMatch' | translate}}</span>
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.registration.password' | translate}} {{'home.registration.doesntMatch' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <app-button
+      buttonText="{{'home.registration.buttonText' | translate}}"
+      class="registration_form_button"
+      buttonType="primary"
+    ></app-button>
+
+    <p>{{'home.registration.signupText' | translate}} <a routerLink="../login" class="registration_form_link">{{'home.registration.changeComponentText' | translate}}</a></p>
+
+  </form>
+</div>

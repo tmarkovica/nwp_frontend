@@ -1,0 +1,48 @@
+<div class="slider">
+
+  <app-button
+    icon="arrow_back_ios"
+    buttonType="icon"
+    (click)="currentPage != 1 && changePage(-1)"
+    [buttonDisabled]="currentPage === 1"
+  ></app-button>
+
+
+  <div class="slider__overflow" [ngClass]="{'full-width': totalPages === 1}" id="so">
+		<div class="slider__cards" [ngStyle]="{'width': overflowWidth, 'left': pagePosition}" id="tempId">
+
+      <ng-container *ngFor="let i of data; let index = index; trackBy: newCardAdded()">
+
+        <div class="slider__card-container" [ngStyle]="{'width': cardWidth}">
+          <app-card-holder
+            [data]="i"
+            [cardType]="cardType"
+            >
+          </app-card-holder>
+        </div>
+
+      </ng-container>
+		</div>
+	</div>
+
+  <app-button
+    icon="arrow_forward_ios"
+    buttonType="icon"
+    (click)="currentPage != totalPages && changePage(+1)"
+    [buttonDisabled]="currentPage === totalPages"
+  ></app-button>
+
+</div>
+
+<div class="pagination">
+  <div *ngFor="let item of [].constructor(totalPages); let i=index">
+    <div class="pagination__circle"
+      [ngClass]="{'pagination__circle_selected' : paginationCircleSelected(i)}"
+      (click)="goToPage(i)">
+    </div>
+  </div>
+</div>
+
+
+
+

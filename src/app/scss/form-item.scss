@@ -1,0 +1,57 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+// form item
+:host::ng-deep .ant-form-item {
+  text-align: left;
+  margin-top: 15px;
+}
+
+// form item label
+:host::ng-deep .ant-form-item-label {
+  text-align: left;
+  margin-left: 3px;
+  font-size: small;
+}
+
+// error label
+:host::ng-deep .ng-star-inserted {
+  text-align: left;
+  font-size: small;
+  color: red;
+  margin-top: 10px;
+}
+
+// input
+.form-item__input {
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: medium;
+  border-bottom: 3px solid $--secondary-color;
+  margin-top: 10px;
+}
+
+.form-item__input:focus-visible {
+  outline: none;
+  border-bottom: 3px solid $--primary-color;
+}
+
+.form-item__input::placeholder {
+  font-size: small;
+}
+
+// removing increment and decrement arrows for number input
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

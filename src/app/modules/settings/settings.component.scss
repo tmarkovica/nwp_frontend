@@ -1,0 +1,60 @@
+@import "src/app/scss/variables.scss";
+@import "src/app/scss/form-item.scss";
+
+.settings {
+  width: 100%;
+  background: $--primary-color;
+  position: absolute;
+  min-height: calc(100% - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
+}
+
+.settings-content {
+  padding: 40px;
+  border-radius: 15px;
+  background-color: $--tertiary-color;
+  margin-top: 25px;
+  min-width: 80%;
+}
+
+.form-item-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-item-row .ant-form-item-control {
+  flex: 100%;
+}
+
+.edit-icon {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.edit-icon:hover {
+  color: $--secondary-color;
+}
+
+.form-item__input::placeholder {
+  color: black;
+}
+
+.form-item__input:disabled {
+  border-bottom: 3px solid gray;
+}
+
+.save-button {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.disabled-input {
+  background: #d1cece63;
+}
+

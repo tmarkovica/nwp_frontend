@@ -1,0 +1,29 @@
+<app-header></app-header>
+
+<div class="content">
+
+  <div class="news-wrapper">
+
+    <div class="news">
+
+      <h1>Trending</h1>
+
+      <div class="news__trending">
+        <app-card-slider
+          [data]="trendingPosts"
+          [cardType]="cardType"
+          >
+        </app-card-slider>
+      </div>
+
+
+      <div class="news__posts">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

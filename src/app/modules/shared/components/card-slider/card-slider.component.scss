@@ -1,0 +1,54 @@
+@import "src/app/scss/variables.scss";
+
+.slider {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.slider__overflow {
+  width: calc(100% - 80px);
+  overflow: hidden;
+  padding: 5px;
+  margin-left: var(--card-margin);
+  margin-right: var(--card-margin);
+}
+
+.slider__cards {
+  position: relative;
+  transition: left 0.5s ease-in-out;
+  display: flex;
+  flex-direction: row;
+}
+
+.slider__card-container {
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: var(--card-margin);
+  position: relative;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination__circle {
+  background: gray;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.pagination__circle_selected {
+  background: $--primary-color;
+  width: 40px;
+  transition: 0.5s;
+}

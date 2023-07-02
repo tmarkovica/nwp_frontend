@@ -1,0 +1,37 @@
+@import "src/app/scss/variables.scss";
+@import "src/app/scss/form-item.scss";
+
+.registration {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding-top: 150px;
+}
+
+.registration_form {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba($color: #ffffff, $alpha: 0.89);
+  border-radius: 15px;
+  padding: 50px;
+  width: 600px;
+}
+
+.registration_form_title {
+  margin-bottom: 50px;
+}
+
+.registration_form_link {
+  color: $--primary-color;
+  text-decoration: none;
+}
+
+.registration_form_link:hover {
+  cursor: pointer;
+}
+
+.registration_form_button {
+  margin-bottom: 20px;
+  margin-top: 50px;
+}

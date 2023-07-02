@@ -1,0 +1,68 @@
+<div
+  class="modal-background"
+  [ngClass]="{'hide-modal': !visible}"
+  (click)="closeModal()"
+  >
+
+  <div class="modal"
+    (click)="$event.stopPropagation()"
+    >
+
+    <div class="modal__close" (click)="closeModal()">X</div>
+
+    <form
+      nz-form
+      [formGroup]="form"
+      >
+    <h2 class="modal__title">{{modalTitle}}</h2>
+
+      <!-- Allowed minus -->
+      <nz-form-item>
+        <nz-form-label>Allowed minus</nz-form-label>
+        <nz-form-control>
+          <input
+            placeholder="Enter amount"
+            formControlName="minus"
+            class="form-item__input"
+            type="number"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+       <!-- Limit withdraw -->
+       <nz-form-item>
+        <nz-form-label>Limit withdraw</nz-form-label>
+        <nz-form-control>
+          <input
+            placeholder="Enter amount"
+            formControlName="withdraw"
+            class="form-item__input"
+            type="number"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="modal__buttons">
+        <app-button
+          class="modal__buttons_spacing"
+          [buttonText]="buttonDeclineText"
+          [transition]="false"
+          buttonType="danger"
+          buttonText="Cancel"
+          (click)="closeModal()"
+          >
+        </app-button>
+        <app-button
+          [buttonText]="buttonConfirmText"
+          [transition]="false"
+          buttonType="primary"
+          buttonText="Create"
+          (click)="createBankAccount()"
+          >
+
+        </app-button>
+      </div>
+    </form>
+  </div>
+</div>
+

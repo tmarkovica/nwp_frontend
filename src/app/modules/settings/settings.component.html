@@ -1,0 +1,108 @@
+<app-header></app-header>
+
+<div class="settings">
+
+  <div class="settings-content">
+    <h1>User Details</h1>
+
+    <form
+      nz-form
+      [formGroup]="form"
+      >
+
+    <nz-form-item>
+      <nz-form-label>First Name</nz-form-label>
+      <div class="form-item-row">
+        <nz-form-control
+          [ngClass]="{'disabled-input' : isInputDisabled('firstName')}"
+        >
+          <input
+            [placeholder]="userDetails.firstName"
+            formControlName="firstName"
+            class="form-item__input"
+            #myInput
+          />
+        </nz-form-control>
+        <app-button
+          icon="edit"
+          buttonType="icon-empty"
+          (click)="enableInput('firstName')"
+          >
+        </app-button>
+      </div>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Last Name</nz-form-label>
+      <div class="form-item-row">
+        <nz-form-control
+          [ngClass]="{'disabled-input' : isInputDisabled('lastName')}"
+        >
+          <input
+            [placeholder]="userDetails.lastName"
+            formControlName="lastName"
+            class="form-item__input"
+          />
+        </nz-form-control>
+        <app-button
+          icon="edit"
+          buttonType="icon-empty"
+          (click)="enableInput('lastName')"
+          >
+        </app-button>
+      </div>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Address</nz-form-label>
+      <div class="form-item-row">
+        <nz-form-control
+          [ngClass]="{'disabled-input' : isInputDisabled('address')}"
+        >
+          <input
+            [placeholder]="userDetails.address"
+            formControlName="address"
+            class="form-item__input"
+          />
+        </nz-form-control>
+        <app-button
+          icon="edit"
+          buttonType="icon-empty"
+          (click)="enableInput('address')"
+          >
+        </app-button>
+      </div>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Phone number</nz-form-label>
+      <div class="form-item-row">
+        <nz-form-control
+          [ngClass]="{'disabled-input' : isInputDisabled('phone')}"
+        >
+          <input
+            [placeholder]="userDetails.phone"
+            formControlName="phone"
+            class="form-item__input"
+          />
+        </nz-form-control>
+        <app-button
+          icon="edit"
+          buttonType="icon-empty"
+          (click)="enableInput('phone')"
+          >
+        </app-button>
+      </div>
+    </nz-form-item>
+
+    <app-button
+      buttonText="Save"
+      class="save-button"
+      buttonType="primary"
+      (click)="saveSettings()"
+    >
+    </app-button>
+    </form>
+
+  </div>
+<div>

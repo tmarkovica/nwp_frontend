@@ -1,0 +1,36 @@
+{
+  "home": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "emailPlaceholder": "Enter E-Mail Adress",
+      "password": "Password",
+      "passwordPlaceholder": "Enter Password",
+      "passwordError": "Your password must be at least 6 characters",
+      "signupText": "Don't have an account?",
+      "changeComponentText": "Sign Up",
+      "buttonText": "Login",
+      "loginWithReddit": "Login with Reddit account.",
+      "required": "Required"
+    },
+    "registration": {
+      "title": "Registration",
+      "username": "Username",
+      "usernamePlaceholder": "Enter Username",
+      "email": "E-Mail",
+      "emailPlaceholder": "Enter E-Mail Adress",
+      "confirmEmail": "Confirm E-Mail",
+      "confirmEmailPlaceholder": "Confirm E-Mail Address",
+      "password": "Password",
+      "passwordPlaceholder": "Enter Password",
+      "passwordError": "Your password must be at least 6 characters",
+      "rePassword": "Confirm Password",
+      "rePasswordPlaceholder": "Re-Enter Password",
+      "signupText": "Already have an account?",
+      "changeComponentText": "Login",
+      "buttonText": "Register",
+      "required": "Required",
+      "doesntMatch": "doesn't match"
+    }
+  }
+}

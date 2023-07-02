@@ -1,0 +1,45 @@
+<div
+  class="modal-background"
+  [ngClass]="{ 'hide-modal': !visible }"
+  (click)="closeModal()"
+>
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal__close" (click)="closeModal()">X</div>
+
+    <h2 class="modal__title">{{ modalTitle }}</h2>
+
+    <nz-form-item>
+      <nz-form-label>{{modalTitle}} amount</nz-form-label>
+      <nz-form-control>
+        <input
+          placeholder="Enter amount"
+          class="form-item__input"
+          type="number"
+          min="0"
+          (click)="$event.target.select()"
+          [(ngModel)]="amount"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <div class="modal__buttons">
+      <app-button
+        class="modal__buttons_spacing"
+        [buttonText]="buttonDeclineText"
+        [transition]="false"
+        buttonType="danger"
+        buttonText="Cancel"
+        (click)="closeModal()"
+      >
+      </app-button>
+      <app-button
+        [buttonText]="buttonConfirmText"
+        [transition]="false"
+        buttonType="primary"
+        buttonText="Create"
+        (click)="buttonConfirmClick()"
+      >
+      </app-button>
+    </div>
+  </div>
+</div>

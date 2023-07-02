@@ -1,0 +1,36 @@
+{
+  "home": {
+    "login": {
+      "title": "Prijava",
+      "email": "Email",
+      "emailPlaceholder": "Unesite E-Mail adresu",
+      "password": "Lozinka",
+      "passwordPlaceholder": "Unesite lozinku",
+      "passwordError": "Vaša lozinka mora imati najmanje 6 znakova",
+      "signupText": "Nemate korisnički račun?",
+      "changeComponentText": "Registracija",
+      "buttonText": "Prijava",
+      "loginWithReddit": "Prijavite se s Reddit računom.",
+      "required": "Obavezno"
+    },
+    "registration": {
+      "title": "Registracija",
+      "username": "Korisničko ime",
+      "usernamePlaceholder": "Unesie korisničko ime",
+      "email": "E-Mail",
+      "emailPlaceholder": "Unesite E-Mail Adresu",
+      "confirmEmail": "Potvrdi E-Mail",
+      "confirmEmailPlaceholder": "Potvrdi E-Mail Adresu",
+      "password": "Lozinka",
+      "passwordPlaceholder": "Unesite lozinku",
+      "passwordError": "Vaša lozinka mora imati najmanje 6 znakova",
+      "rePassword": "Potvrdite lozinku",
+      "rePasswordPlaceholder": "Ponvno unesite lozinku",
+      "signupText": "Već imate korisnički račun?",
+      "changeComponentText": "Prijava",
+      "buttonText": "Registracija",
+      "required": "Obavezno",
+      "doesntMatch": "se ne poklapa"
+    }
+  }
+}

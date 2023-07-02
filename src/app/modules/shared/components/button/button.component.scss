@@ -1,0 +1,105 @@
+@import "src/app/scss/variables.scss";
+
+.button {
+  padding: 10px;
+  border-radius: 20px;
+  border: 0px;
+  width: 25%;
+  align-self: center;
+  font-weight: bold;
+  color: #fff;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.background-transition {
+  transition: 0.5s;
+}
+
+.background-transition:hover {
+  transition: 0.5s;
+}
+
+.primary {
+  background-color: $--primary-color;
+  &:hover {
+    background-color: $--secondary-color;
+  }
+}
+
+.secondary {
+  background-color: $--secondary-color;
+}
+
+.tertiary {
+  background-color: $--tertiary-color;
+}
+
+.danger {
+  background-color: $--danger-color;
+  &:hover {
+    background-color: $--danger-darker;
+  }
+}
+
+.primary-empty {
+  box-shadow: 0px 0px 0px 3px $--primary-color inset;
+  color: $--primary-color;
+
+  &:hover {
+    background-color: $--primary-color;
+    color: white;
+  }
+}
+
+.danger-empty {
+  box-shadow: 0px 0px 0px 3px $--danger-darker inset;
+  color: $--danger-darker;
+  &:hover {
+    background-color: $--danger-darker;
+    color: white;
+  }
+}
+
+.icon {
+  display: flex;
+  align-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px !important;
+  border-radius: 40px;
+  height: 50px;
+  background-color: $--primary-color;
+
+  &:hover:not([disabled]) {
+    background-color: $--secondary-color;
+  }
+
+  &:disabled {
+    background-color: rgba(31, 29, 29) !important;
+  }
+}
+
+:host .icon-empty {
+  display: flex;
+  align-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px !important;
+  border-radius: 40px;
+  height: 50px;
+  background-color: transparent;
+  color: $--primary-color !important;
+  padding: 0px;
+
+  &:hover:not([disabled]) {
+    color: $--secondary-color;
+  }
+}
+
+.icon-empty span {
+  color: $--primary-color !important;
+  font-size: x-large;
+}

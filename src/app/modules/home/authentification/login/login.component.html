@@ -1,0 +1,58 @@
+<div class="login">
+
+  <form
+    class="login_form"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+    <h1 class="login_form_title">{{'home.login.title' | translate}}</h1>
+
+    <!-- Username -->
+    <nz-form-item>
+      <nz-form-label>{{'home.login.email' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="usernameError">
+        <input
+          placeholder="{{'home.login.emailPlaceholder' | translate}}"
+          formControlName="email"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #usernameError let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.login.required' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <!-- Password -->
+    <nz-form-item>
+      <nz-form-label>{{'home.login.password' | translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="passwordError">
+        <input
+          placeholder="{{'home.login.passwordPlaceholder' | translate}}"
+          formControlName="password"
+          type="password"
+          class="form-item__input"
+        />
+      </nz-form-control>
+      <ng-template #passwordError let-control>
+        <ng-container *ngIf="control.hasError('minlength')">
+            <span>Your password must be at least 6 characters</span>
+        </ng-container>
+        <ng-container *ngIf="control.hasError('required')">
+          <span>{{'home.login.required' | translate}}</span>
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <app-button
+      buttonText="{{'home.login.buttonText' | translate}}"
+      class="login_form_button"
+      buttonType="primary"
+    ></app-button>
+
+    <p>{{'home.login.signupText' | translate}} <a routerLink="../registration" class="login_form_link">{{'home.login.changeComponentText' | translate}}</a></p>
+    <a class="login_form_link" (click)="loginWithReddit()">{{'home.login.loginWithReddit' | translate}}</a>
+
+  </form>
+</div>

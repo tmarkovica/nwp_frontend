@@ -1,0 +1,15 @@
+<div appClickOutside (clickOutside)="dropdownHidden = true">
+  <app-button
+    (click)="dropdownHidden = !dropdownHidden"
+    buttonText="{{username}}"
+    buttonType="primary"
+    [transition]="false"
+    >
+  </app-button>
+
+  <div [hidden]="dropdownHidden" class="dropdown">
+    <div class="dropdown__button disable-select"  (click)="goToPage('bank-accounts')">Bank Accounts</div>
+    <div class="dropdown__button disable-select"  (click)="goToPage('settings')">Settings</div>
+    <div class="dropdown__button disable-select" (click)="logout()">Logout</div>
+  </div>
+</div>
