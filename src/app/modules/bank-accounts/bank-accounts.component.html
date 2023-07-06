@@ -4,7 +4,7 @@
 
   <div class="section" *ngIf="transactions.length > 0">
     <div class="section__heading">
-      <h1>TRANSACTIONS</h1>
+      <h1>HISTORY</h1>
     </div>
     <hr>
     <div class="accounts">
@@ -19,8 +19,8 @@
   <div class="section">
 
     <div class="section__heading">
-      <h1>BANK ACCOUNTS</h1>
-      <label>Currently open accounts <b>({{bankAccounts?.length}})</b></label>
+      <h1>SCORE Notes</h1>
+      <label>Currently open profiles <b>({{bankAccounts?.length}})</b></label>
     </div>
     <hr>
 
@@ -34,33 +34,33 @@
       <div class="accounts__card">
 
         <div class="accounts__card__header">
-          <h3>Account ID: {{item.id}}</h3>
+          <h3>Score profile ID: {{item.id}}</h3>
           <app-button buttonText="Delete" buttonType="danger" (click)="deleteAccount(accountIndex)"></app-button>
         </div>
 
         <div class="accounts__card__content">
 
           <div class="accounts__card__content__block">
-            <label class="label-title">Balance</label>
-            <label class="label-value">{{item.balance}}</label>
+            <label class="label-title">Score</label>
+            <label class="label-value">{{item.score}}</label>
           </div>
 
           <hr>
 
           <div class="accounts__card__content__block">
-            <label class="label-title">Allowed minus</label>
-            <label class="label-value">{{item.allowedMinus}}</label>
+            <label class="label-title">Note</label>
+            <label class="label-value">{{item.note}}</label>
 
-            <label class="label-title">Limit withdraw</label>
-            <label class="label-value">{{item.limitWithdraw}}</label>
+            <!-- <label class="label-title">Limit withdraw</label>
+            <label class="label-value">{{item.limitWithdraw}}</label> -->
           </div>
 
         </div>
 
         <div class="accounts__card__content__buttons">
-          <app-button buttonText="Deposit" (click)="openModal('deposit', accountIndex)"></app-button>
+          <app-button buttonText="Edit" (click)="openModal('deposit', accountIndex)"></app-button>
 
-          <app-button buttonText="Withdraw" buttonType="primary-empty" (click)="openModal('withdraw', accountIndex)"></app-button>
+          <app-button buttonText="Edit" buttonType="primary-empty" (click)="openModal('withdraw', accountIndex)"></app-button>
         </div>
       </div>
     </div>
@@ -82,6 +82,45 @@
 
 <app-modal-transaction
   #deposit
+  [modalTitle]="'Edit score'"
+  (confirmClicked)="editScore($event)"
+  >
+  <nz-form-item>
+    <nz-form-label>Edit score</nz-form-label>
+    <nz-form-control>
+      <input
+        class="form-item__input"
+        type="number"
+        min="0"
+        (click)="$event.target.select()"
+        [(ngModel)]="score"
+      />
+    </nz-form-control>
+  </nz-form-item>
+</app-modal-transaction>
+
+<app-modal-transaction
+  #withdraw
+  [modalTitle]="'Edit note'"
+  (confirmClicked)="editNote($event)"
+  >
+  <nz-form-item>
+    <nz-form-label>Edit note</nz-form-label>
+    <nz-form-control>
+      <input
+        class="form-item__input"
+        placeholder="Enter note"
+        type="text"
+        (click)="$event.target.select()"
+        [(ngModel)]="note"
+      />
+    </nz-form-control>
+  </nz-form-item>
+</app-modal-transaction>
+
+<!--
+<app-modal-transaction
+  #deposit
   [modalTitle]="'Deposit'"
   buttonConfirmText="Confirm"
   buttonDeclineText="Cancel"
@@ -94,4 +133,4 @@
   buttonConfirmText="Confirm"
   buttonDeclineText="Cancel"
   >
-</app-modal-transaction>
+</app-modal-transaction> -->

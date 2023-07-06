@@ -13,7 +13,7 @@ import { SettingsComponent } from './modules/settings/settings.component';
 import { NotificationsContainerModule } from './modules/shared/components/notifications-container/notifications-container.module';
 import { BankAccountsComponent } from './modules/bank-accounts/bank-accounts.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     NotificationsContainerModule,
     NzFormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

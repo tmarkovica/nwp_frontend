@@ -8,6 +8,7 @@
   </app-button>
 
   <div [hidden]="dropdownHidden" class="dropdown">
+    <div class="dropdown__button disable-select"  (click)="goToPage('news')">News</div>
     <div class="dropdown__button disable-select"  (click)="goToPage('bank-accounts')">Bank Accounts</div>
     <div class="dropdown__button disable-select"  (click)="goToPage('settings')">Settings</div>
     <div class="dropdown__button disable-select" (click)="logout()">Logout</div>

@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { BankAccount } from 'src/app/interfaces/bank-account';
 import { BankTransaction } from 'src/app/interfaces/bank-transaction';
 import { TokenManagerService } from '../token-manager/token-manager.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,15 +29,17 @@ export class BankService {
   }
 
   public retrieveBankAccountsFromUser() {
-    this.http.get('http://localhost:8080/bank-accounts', this.options).subscribe((res: BankAccount[]) => {
+    const id: number = this._tokenManager.getUserId();
+
+    this.http.get(`${environment.api_url}/Score/Score/${id}`).subscribe((res: BankAccount[]) => { //this.options
       this.bankAccounts.next(res);
     });
   }
 
-  public createNewBankAccount(temp: {minus: number, withdraw: number}): Promise<boolean> {
-    return this.http.post('http://localhost:8080/bank-accounts', {
-      "allowedMinus": temp.minus,
-      "limitWithdraw": temp.withdraw
+  public createNewBankAccount(temp: {score: number, note: string}): Promise<boolean> {
+    return this.http.post(`${environment.api_url}/Score/Score/${this._tokenManager.getUserId()}`, { //'http://localhost:8080/bank-accounts'
+      "score": temp.score,
+      "note": temp.note
     }, this.options).toPromise().then(() => {
       this.retrieveBankAccountsFromUser();
       return true;
@@ -55,8 +58,10 @@ export class BankService {
   }
 
   public deleteBankAccount(id: number): Promise<boolean> {
-    return this.http.delete(`http://localhost:8080/bank-accounts/${id}`, this.options).toPromise().then((res: any) => {
+    return this.http.delete(`${environment.api_url}/Score/Score/${this._tokenManager.getUserId()}/${id}`, this.options) //`http://localhost:8080/bank-accounts/${id}`
+    .toPromise().then((res: any) => {
       this.deleteAccountWithIdAndNotifySubscribers(id);
+      this.logTransaction('withdraw', 0, id);
       return true
     }).catch((err: Error) => {
       console.log(err);
@@ -73,7 +78,35 @@ export class BankService {
     })
   }
 
-  public depositMoney(id: number, amount: number): Promise<boolean> {
+  public editScore(scoreProfileId: number, score: number) {
+    return this.http.put(`${environment.api_url}/Score/Score/${scoreProfileId}`, {score: score, note: ''}, this.options)
+    .toPromise().then((res: HttpStatusCode.NoContent) => {
+      this.bankAccounts.value.find((ba: BankAccount) => {
+        if (ba.id === scoreProfileId)
+        ba.score = score;
+      })
+      this.logTransaction('deposit', score, scoreProfileId);
+      return true;
+    }).catch((err: Error) => {
+      return false;
+    })
+  }
+
+  public editNote(scoreProfileId: number, note: string) {
+    return this.http.put(`${environment.api_url}/Score/Score/${scoreProfileId}`, {score: -1, note: note}, this.options)
+    .toPromise().then((res: HttpStatusCode.NoContent) => {
+      this.bankAccounts.value.find((ba: BankAccount) => {
+        if (ba.id === scoreProfileId)
+        ba.note = note;
+      })
+      this.logTransaction('deposit', scoreProfileId);
+      return true;
+    }).catch((err: Error) => {
+      return false;
+    })
+  }
+
+  /* public depositMoney(id: number, amount: number): Promise<boolean> {
     return this.http.patch(`http://localhost:8080/bank-accounts/${id}/deposit?amount=${amount}`, "", this.options)
     .toPromise().then((res: HttpStatusCode.NoContent) => {
       this.retrieveBalance(id);
@@ -103,24 +136,24 @@ export class BankService {
       console.log(error)
       return false;
     })
-  }
+  } */
 
   public getBankAccountWithId(id: number): BankAccount {
     return this.bankAccounts.value.find((account: BankAccount) => account.id === id);
   }
 
-  public isWitdrawlAmountPossibleFromAccountWithId(amount: number, id: number): boolean {
+  /* public isWitdrawlAmountPossibleFromAccountWithId(amount: number, id: number): boolean {
     const withdrawAcc = this.getBankAccountWithId(id);
     if (amount <= withdrawAcc.limitWithdraw && (withdrawAcc.balance - amount >= -1 * withdrawAcc.allowedMinus))
       return true;
     else
       return false;
-  }
+  } */
 
   private logTransaction(
     transactionType: string,
     amountId: number,
-    account: number
+    account: number = 0
     ) {
       const userId = this._tokenManager.getUserId();
 

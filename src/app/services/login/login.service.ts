@@ -8,6 +8,7 @@ import { UserDetails } from 'src/app/interfaces/user-details';
 import { UserUpdateRequest } from 'src/app/interfaces/user-update-request';
 import { environment } from 'src/environments/environment';
 import { TokenManagerService } from '../token-manager/token-manager.service';
+import { Account } from 'src/app/interfaces/account';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,7 @@ export class LoginService {
   private loggedIn: boolean = false;
 
   public userDetails: UserDetails;
+  public username: string = null;
 
   constructor(
     private http: HttpClient,
@@ -38,6 +40,7 @@ export class LoginService {
     this.loggedIn = this._tokenManager.isAuthorizationSavedInStorage();
     if (this.loggedIn) {
       this.userDetails = this._tokenManager.getUserDetails();
+      this.username = this._tokenManager.getUsername();
     }
   }
 
@@ -86,12 +89,27 @@ export class LoginService {
       })
     };
 
-    this.http.get('http://localhost:8080/user', options).subscribe((res: UserDetails) => {
+    /* this.http.get(`${environment.api_url}/Account/Login`, options).subscribe((res: UserDetails) => { //'http://localhost:8080/user'
       this.userDetails = res;
       this.loggedIn = true;
       this._tokenManager.saveUserDetailsToLocalStorage(res);
       this._tokenManager.saveBasicAuthToLocalStorage(btoa(`${login.email}:${login.password}`));
       this.navigateToNewsPage();
+    }, (error) => {
+      this.loggedIn = false;
+    }); */
+
+    this.http.post(`${environment.api_url}/Account/Login`, login).subscribe((res: Account[]) => { //'http://localhost:8080/user'
+      if (res.length > 0) {
+        this.loggedIn = true;
+        //this.userDetails = res;
+        //this._tokenManager.saveUserDetailsToLocalStorage(res);
+        this.username = res[0].username;
+        console.log(res[0]);
+        this._tokenManager.saveAccountToLocalStorage(res[0]);
+        this._tokenManager.saveBasicAuthToLocalStorage(btoa(`${login.email}:${login.password}`));
+        this.navigateToNewsPage();
+      }
     }, (error) => {
       this.loggedIn = false;
     });
@@ -100,16 +118,13 @@ export class LoginService {
   public registerUser(registration) {
     const reg: Registration = {
       username: registration['username'],
-      password: registration['password'],
-      firstName: 'name: ' + registration['username'],
-      lastName: 'last name',
-      address: registration['email'],
-      phone: "string"
+      email: registration['email'],
+      password: registration['password']
     }
 
-    this.http.post('http://localhost:8080/user', reg).subscribe(
-      (res: any) => {
-        if (res == null) {
+    this.http.post(`${environment.api_url}/Account/Register`, reg).subscribe(  //'http://localhost:8080/user'
+      (res: Account[]) => {
+        if (res.length > 0) {
           console.log(res);
           this._tokenManager.saveBasicAuthToLocalStorage(btoa(`${registration.email}:${registration.password}`));
           this.login({ email: reg['username'], password: reg['password'] });
@@ -132,6 +147,7 @@ export class LoginService {
   public logout() {
     this.loggedIn = false;
     this._tokenManager.removeLoginData();
+    this.username = null;
     this.router.navigate(['/'], {replaceUrl: true});
   }
 

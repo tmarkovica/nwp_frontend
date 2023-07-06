@@ -23,8 +23,8 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      minus: [0, [Validators.required]],
-      withdraw: [0, [Validators.required]]
+      score: [0, [Validators.required]],
+      note: ['', [Validators.required]]
     });
   }
 

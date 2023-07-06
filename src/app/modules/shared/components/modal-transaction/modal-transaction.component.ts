@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BankService } from 'src/app/services/bank/bank.service';
 import { NotificationToDisplay } from '../notifications-container/notification/Notification';
 import { NotificationType } from '../../../../types/NotificationType';
@@ -16,6 +16,8 @@ export class ModalTransactionComponent implements OnInit {
   @Input() public visible: boolean;
   @Input() public buttonConfirmText: string = "Yes";
   @Input() public buttonDeclineText: string = "No";
+
+  @Output() public confirmClicked: EventEmitter<number> = new EventEmitter();
 
   public amount: number = 0;
 
@@ -37,13 +39,15 @@ export class ModalTransactionComponent implements OnInit {
   }
 
   public buttonConfirmClick() {
-    if (this.amount == null || this.amount < 0)
+    this.confirmClicked.emit(this.accountId);
+
+    /* if (this.amount == null || this.amount < 0)
       return;
 
     if (this.modalTitle === 'Withdraw')
       this.withdraw()
     else if (this.modalTitle === 'Deposit')
-      this.deposit()
+      this.deposit() */
   }
 
   public clearField() {
@@ -51,7 +55,7 @@ export class ModalTransactionComponent implements OnInit {
   }
 
   private deposit() {
-    this._bank.depositMoney(this.accountId, this.amount).then((isDepositSuccessful: boolean) => {
+    /* this._bank.depositMoney(this.accountId, this.amount).then((isDepositSuccessful: boolean) => {
       let temp: NotificationToDisplay;
       if (isDepositSuccessful) {
         temp = this._notification.createNotificationToDisplay(
@@ -71,11 +75,11 @@ export class ModalTransactionComponent implements OnInit {
       }
       this._notification.showNotification(temp);
     });
-    this.closeModal()
+    this.closeModal() */
   }
 
   private withdraw() {
-    let temp: NotificationToDisplay;
+    /* let temp: NotificationToDisplay;
     if(this._bank.isWitdrawlAmountPossibleFromAccountWithId(this.amount, this.accountId)) {
       this._bank.withdrawMoney(this.accountId, this.amount).then((isWithdrawSuccessful: boolean) => {
         if (isWithdrawSuccessful) {
@@ -106,6 +110,6 @@ export class ModalTransactionComponent implements OnInit {
       )
       this._notification.showNotification(temp);
     }
-    this.closeModal();
+    this.closeModal(); */
   }
 }

@@ -1,4 +1,7 @@
 @import "src/app/scss/variables.scss";
+@import "src/app/scss/form-item.scss";
+@import "src/app/scss/modal.scss";
+
 
 .bank-accounts {
   width: 100%;
@@ -86,8 +89,8 @@
 }
 
 .label-value {
-  font-weight: bold;
-  font-size: x-large;
+  /* font-weight: bold;
+  font-size: x-large; */
   margin: 10px;
 }
 

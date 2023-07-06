@@ -11,4 +11,5 @@ export const environment = {
                     "redirect_uri=http://localhost:4200/login&" +
                     "duration=permanent&" +
                     "scope=identity read",
+  api_url: "https://localhost:44360/api"
 };

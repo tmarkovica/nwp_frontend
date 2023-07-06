@@ -21,7 +21,7 @@ export class BankAccountsComponent implements OnInit {
   public readonly cardType: TypeProvider = TransactionCardComponent;
 
   @ViewChild('create') modalCreateBankAccount: ModalComponent;
-  public titleCreateBankAccount: string = "Create bank account";
+  public titleCreateBankAccount: string = "Create score note";
 
   @ViewChild('deposit') modalDeposit: ModalTransactionComponent;
 
@@ -29,6 +29,9 @@ export class BankAccountsComponent implements OnInit {
 
   @ViewChild('modalTerms') modalTermsOfUse: ModalComponent;
   public titleReadTermsOfUse: string = "Read terms of use";
+
+  public score: number = 0;
+  public note: string = '';
 
   constructor(
     private _bank: BankService,
@@ -52,8 +55,10 @@ export class BankAccountsComponent implements OnInit {
       this.modalDeposit.openModal(this.bankAccounts[index].id);
     else if (modal === 'withdraw')
         this.modalWithdraw.openModal(this.bankAccounts[index].id);
-  }
 
+    this.score = this.bankAccounts[index].score;
+    this.note = this.bankAccounts[index].note;
+  }
 
   public deleteAccount(index: number) {
     const accountId = this.bankAccounts[index].id;
@@ -68,6 +73,59 @@ export class BankAccountsComponent implements OnInit {
         );
       }
       this._notification.showNotification(temp);
+    });
+  }
+
+  public clearField() {
+    this.score = 0;
+    this.note = '';
+  }
+
+  public editScore(scoreProfileId: number) {
+    this._bank.editScore(scoreProfileId, this.score).then((isDepositSuccessful: boolean) => {
+      let temp: NotificationToDisplay;
+      if (isDepositSuccessful) {
+        temp = this._notification.createNotificationToDisplay(
+          `Score Edited`,
+          `Score set to ${this.score}.`,
+          3000,
+          NotificationType.SUCESS
+          );
+          this.clearField();
+      } else {
+        temp = this._notification.createNotificationToDisplay(
+          `Editing unsuccessful`,
+          `Unable to edit.`,
+          3000,
+          NotificationType.FAILURE
+        );
+      }
+      this._notification.showNotification(temp);
+      this.modalDeposit.closeModal();
+    });
+  }
+
+  public editNote(scoreProfileId: number) {
+    this._bank.editNote(scoreProfileId, this.note).then((isDepositSuccessful: boolean) => {
+      let temp: NotificationToDisplay;
+      if (isDepositSuccessful) {
+        temp = this._notification.createNotificationToDisplay(
+          `Note Edited`,
+          `Note set to ${this.note}.`,
+          3000,
+          NotificationType.SUCESS
+          );
+          this.clearField();
+      } else {
+        temp = this._notification.createNotificationToDisplay(
+          `Editing unsuccessful`,
+          `Unable to edit.`,
+          3000,
+          NotificationType.FAILURE
+        );
+      }
+      this._notification.showNotification(temp);
+      this.modalWithdraw.closeModal();
     });
   }
 }

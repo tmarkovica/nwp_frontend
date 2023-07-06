@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AccessTokenResponse } from 'src/app/interfaces/access-token-response';
+import { Account } from 'src/app/interfaces/account';
 import { UserDetails } from 'src/app/interfaces/user-details';
 
 @Injectable({
@@ -10,10 +11,12 @@ export class TokenManagerService {
   private ACCESS_TOKEN_STORAGE_KEY = 'access_token';
   private USER_STORAGE_KEY = 'user';
   private BASIC_AUTH_KEY = 'basic_auth';
+  private ACCOUNT_STORAGE_KEY = 'account';
 
   private accessTokenResponse: AccessTokenResponse;
   private basicAuthToken: string;
   private userDetails: UserDetails;
+  private account: Account;
 
   private loggedInWithReddit: boolean = false;
 
@@ -22,6 +25,7 @@ export class TokenManagerService {
     this.loadRedditAccessTokenResponseFromLocalStorage();
     this.loadBasicAuthFromLocalStorage();
     this.loadUserDetailsFromLocalStorage();
+    this.loadAccountFromLocalStorage();
   }
 
   public isLoggedInWithReddit(): boolean {
@@ -62,6 +66,20 @@ export class TokenManagerService {
     return this.basicAuthToken;
   }
 
+  // User account
+  private loadAccountFromLocalStorage() {
+    this.account = JSON.parse(localStorage.getItem(this.ACCOUNT_STORAGE_KEY)) as Account;
+  }
+
+  public saveAccountToLocalStorage(account: Account) {
+    localStorage.setItem(this.ACCOUNT_STORAGE_KEY, JSON.stringify(account));
+    this.account = account;
+  }
+
+  public getUsername(): string {
+    return this.account?.username;
+  }
+
   // User details
   private loadUserDetailsFromLocalStorage() {
     this.userDetails = JSON.parse(localStorage.getItem(this.USER_STORAGE_KEY)) as UserDetails;
@@ -93,10 +111,16 @@ export class TokenManagerService {
     this.basicAuthToken = null;
   }
 
+  private removeAccountFromLocalStorage() {
+    localStorage.removeItem(this.ACCOUNT_STORAGE_KEY);
+    this.account.username = null;
+  }
+
   public removeLoginData() {
     this.removeRedditAccessTokenFromLocalStorage();
     this.removeUserDetailsFromLocalStorage();
     this.removeBasicAuthFromLocalStorage();
+    this.removeAccountFromLocalStorage();
   }
 
   public isAuthorizationSavedInStorage(): boolean {
@@ -107,6 +131,6 @@ export class TokenManagerService {
   }
 
   public getUserId(): number {
-    return this.userDetails.id;
+    return this.account.id;
   }
 }
