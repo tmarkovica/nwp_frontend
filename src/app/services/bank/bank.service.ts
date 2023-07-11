@@ -40,7 +40,7 @@ export class BankService {
     return this.http.post(`${environment.api_url}/Score/Score/${this._tokenManager.getUserId()}`, { //'http://localhost:8080/bank-accounts'
       "score": temp.score,
       "note": temp.note
-    }, this.options).toPromise().then(() => {
+    }).toPromise().then(() => {
       this.retrieveBankAccountsFromUser();
       return true;
     }).catch((err: Error) => {
@@ -58,7 +58,7 @@ export class BankService {
   }
 
   public deleteBankAccount(id: number): Promise<boolean> {
-    return this.http.delete(`${environment.api_url}/Score/Score/${this._tokenManager.getUserId()}/${id}`, this.options) //`http://localhost:8080/bank-accounts/${id}`
+    return this.http.delete(`${environment.api_url}/Score/Score/${this._tokenManager.getUserId()}/${id}`) //`http://localhost:8080/bank-accounts/${id}`
     .toPromise().then((res: any) => {
       this.deleteAccountWithIdAndNotifySubscribers(id);
       this.logTransaction('withdraw', 0, id);
@@ -69,17 +69,17 @@ export class BankService {
     });
   }
 
-  public transferMoney(withdrawId: number, depositId: number, amount: number) {
+  /* public transferMoney(withdrawId: number, depositId: number, amount: number) {
     this.http.patch(`http://localhost:8080/bank-accounts/${withdrawId}/transfer/${depositId}?amount${amount}`, this.options).toPromise()
     .then((res: HttpStatusCode.NoContent) => {
 
     }).catch(error => {
       console.log(error)
     })
-  }
+  } */
 
   public editScore(scoreProfileId: number, score: number) {
-    return this.http.put(`${environment.api_url}/Score/Score/${scoreProfileId}`, {score: score, note: ''}, this.options)
+    return this.http.put(`${environment.api_url}/Score/Score/${scoreProfileId}`, {score: score, note: ''})
     .toPromise().then((res: HttpStatusCode.NoContent) => {
       this.bankAccounts.value.find((ba: BankAccount) => {
         if (ba.id === scoreProfileId)
@@ -93,7 +93,7 @@ export class BankService {
   }
 
   public editNote(scoreProfileId: number, note: string) {
-    return this.http.put(`${environment.api_url}/Score/Score/${scoreProfileId}`, {score: -1, note: note}, this.options)
+    return this.http.put(`${environment.api_url}/Score/Score/${scoreProfileId}`, {score: -1, note: note})
     .toPromise().then((res: HttpStatusCode.NoContent) => {
       this.bankAccounts.value.find((ba: BankAccount) => {
         if (ba.id === scoreProfileId)

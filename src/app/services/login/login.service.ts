@@ -99,7 +99,7 @@ export class LoginService {
       this.loggedIn = false;
     }); */
 
-    this.http.post(`${environment.api_url}/Account/Login`, login).subscribe((res: Account[]) => { //'http://localhost:8080/user'
+    this.http.post(`${environment.api_url}/Account/Login`, login, options).subscribe((res: Account[]) => { //'http://localhost:8080/user'
       if (res.length > 0) {
         this.loggedIn = true;
         //this.userDetails = res;
